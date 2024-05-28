@@ -32,6 +32,14 @@
 
     <!-- Custom styles for this template -->
     <link href="index.css" rel="stylesheet" />
+    
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+
+
   </head>
   <body class="bg-light">
     <header class="px-5 p-3 text-white fixed-top scrolling">
@@ -92,6 +100,7 @@
                       <span class="badge rounded-pill bg-dark">NodeJS</span>
                       <span class="badge rounded-pill bg-dark">MongoDB</span>
                       <span class="badge rounded-pill bg-dark">Express.jS</span>
+                      <span class="badge rounded-pill bg-dark">Python</span>
                     </p>
                   </div>
                 </div>
@@ -473,75 +482,91 @@
               ><i class="bi bi-github m-2"></i
             ></a>
 
-            <form>
+            <form onsubmit="submitForm(event)">
               <div class="mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter Email Address"
-                />
+                  <input
+                      type="email"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter Email Address"
+                  />
               </div>
-
               <div class="mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  placeholder="Enter Name"
-                />
+                  <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      placeholder="Enter Name"
+                  />
               </div>
-
               <div class="mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="subject"
-                  placeholder="Enter Subject"
-                />
+                  <input
+                      type="text"
+                      class="form-control"
+                      id="subject"
+                      placeholder="Enter Subject"
+                  />
               </div>
-
               <div class="mb-3">
-                <textarea
-                  class="form-control"
-                  aria-label="with textarea"
-                  placeholder="Enter Message"
-                ></textarea>
+                  <textarea
+                      class="form-control"
+                      aria-label="With textarea"
+                      placeholder="Enter Message"
+                  ></textarea>
               </div>
-
               <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+          </form>
+      </section>
+      <footer class="bg-dark text-center text-white">
+          <div class="container p-3">
+              <p>
+                  &copy;2024 Zaio Bootstrap course, Developed by Dakalo Sadiki using Bootstrap.
+              </p>
           </div>
-        </div>
-      </div>
-    </section>
-    <!---->
+      </footer>
+  
+      <script>
+          // Your web app's Firebase configuration
+          const firebaseConfig = {
+              apiKey: "AIzaSyCp4qVvnj7hVxTs-HMs9OpwWGq8kHxkbEk",
+              authDomain: "portfolio-form-bc9d5.firebaseapp.com",
+              projectId: "portfolio-form-bc9d5",
+              storageBucket: "portfolio-form-bc9d5.appspot.com",
+              messagingSenderId: "320344706868",
+              appId: "1:320344706868:web:5f46d52cbc46717ade9f61",
+              measurementId: "G-CZ71DLQ98Q"
+          };
+          
+          // Initialize Firebase
+          firebase.initializeApp(firebaseConfig);
+          firebase.analytics();
+  
+          // Reference to the database service
+          const database = firebase.database();
+  
+          function submitForm(event) {
+              event.preventDefault();
+  
+              // Get form values
+              const email = document.getElementById('exampleInputEmail1').value;
+              const name = document.getElementById('name').value;
+              const subject = document.getElementById('subject').value;
+              const message = document.querySelector('textarea').value;
+  
+              // Save form data to Firebase
+              const newMessageRef = database.ref('messages').push();
+              newMessageRef.set({
+                  email: email,
+                  name: name,
+                  subject: subject,
+                  message: message
+              });
+  
+              // Reset form
+              document.querySelector('form').reset();
+          }
+      </script>
 
-    <footer class="bg-dark text-center text-white">
-      <div class="container p-3">
-        <p>
-          &copy;2024 Zaio Bootstrap course, Developed by Dakalo Sadiki using
-          Bootstrap. Please don't sell my information.
-        </p>
-      </div>
-    </footer>
-
-    <script>
-      window.addEventListener("scroll", () => {
-        const header = document.querySelector("header");
-        header.classList.toggle("scrolling", window.scrollY > 0);
-      });
-    </script>
-    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-
-    <script>
-      var typed = new Typed("#typed", {
-        strings: ["Fullstack Web Developer", "CodingGuru.", "Enterpreneur"],
-        loop: true,
-        typeSpeed: 75,
-        shuffle: true,
-      });
-    </script>
   </body>
 </html>
