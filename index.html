@@ -62,7 +62,7 @@
       <div class="overlay"></div>
       <main class="text-center">
         <h1 class="display-1">I am Dakalo Sadiki</h1>
-        <span class="lead" id="typed"></span>
+        <span class="lead" id="typed">Full Stack Developer</span>
       </main>
     </div>
 
@@ -525,48 +525,32 @@
               </p>
           </div>
       </footer>
-  
       <script>
-          // Your web app's Firebase configuration
-          const firebaseConfig = {
-              apiKey: "AIzaSyCp4qVvnj7hVxTs-HMs9OpwWGq8kHxkbEk",
-              authDomain: "portfolio-form-bc9d5.firebaseapp.com",
-              projectId: "portfolio-form-bc9d5",
-              storageBucket: "portfolio-form-bc9d5.appspot.com",
-              messagingSenderId: "320344706868",
-              appId: "1:320344706868:web:5f46d52cbc46717ade9f61",
-              measurementId: "G-CZ71DLQ98Q"
-          };
-          
-          // Initialize Firebase
-          firebase.initializeApp(firebaseConfig);
-          firebase.analytics();
+        function submitForm(event) {
+            event.preventDefault();
+
+            var email = document.getElementById("email").value;
+            var name = document.getElementById("name").value;
+            var subject = document.getElementById("subject").value;
+            var message = document.getElementById("message").value;
+
+            Email.send({
+                Host: "smtp.elasticemail.com", // Replace with your SMTP server
+                Username: "dakalosadiki98@gmail.com", // Replace with your SMTP username
+                Password: "CE2D4D4E4C67FA6D82EFE1B87CD44459FD17", // Replace with your SMTP password
+                To: 'dakalosadiki98@gmail.com', // Replace with the recipient's email address
+                From: email,
+                Subject: subject,
+                Body: `Name: ${name}<br>Email: ${email}<br>Message: ${message}`
+            }).then(
+                message => alert("Mail sent successfully")
+            );
+        }
+    </script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
   
-          // Reference to the database service
-          const database = firebase.database();
-  
-          function submitForm(event) {
-              event.preventDefault();
-  
-              // Get form values
-              const email = document.getElementById('exampleInputEmail1').value;
-              const name = document.getElementById('name').value;
-              const subject = document.getElementById('subject').value;
-              const message = document.querySelector('textarea').value;
-  
-              // Save form data to Firebase
-              const newMessageRef = database.ref('messages').push();
-              newMessageRef.set({
-                  email: email,
-                  name: name,
-                  subject: subject,
-                  message: message
-              });
-  
-              // Reset form
-              document.querySelector('form').reset();
-          }
-      </script>
+   
+   
 
   </body>
 </html>
